@@ -1,0 +1,4 @@
+[build]
+  base = "spa/iat/"
+  publish = "spa/iat/dist"
+  command = "yarn build"
