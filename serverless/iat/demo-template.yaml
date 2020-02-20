@@ -1,0 +1,51 @@
+Resources:
+  default:
+    Type: "TencentCloud::Serverless::Namespace"
+    iat:
+      Properties:
+        CodeUri: ./
+        Description: A function for Implicit Association Test project.
+        Environment:
+          Variables:
+            MYSQL_HOST: "127.0.0.1"
+            MYSQL_PORT: "3306"
+            MYSQL_USER: "root"
+            MYSQL_USER_PWD: "test"
+            MYSQL_DB: "iat"
+        Handler: index.main_handler
+        MemorySize: 128
+        Timeout: 3
+        Role: QCS_SCFExcuteRole
+        Runtime: Python3.6
+        # VpcConfig:
+        #   VpcId: 'vpc-qdqc5k2p'
+        #   SubnetId: 'subnet-pad6l61i'
+        # Events:
+        #   timer:
+        #     Type: Timer
+        #     Properties:
+        #       CronExpression: '*/5 * * * *'
+        #       Enable: True
+        #   cli-appid.cos.ap-beijing.myqcloud.com: # full bucket name
+        #     Type: COS
+        #     Properties:
+        #       Bucket: cli-appid.cos.ap-beijing.myqcloud.com
+        #       Filter:
+        #         Prefix: filterdir/
+        #         Suffix: .jpg
+        #       Events: cos:ObjectCreated:*
+        #       Enable: True
+        #   topic:            # topic name
+        #     Type: CMQ
+        #     Properties:
+        #       Name: qname
+        #   hello_world_apigw:  # ${FunctionName} + '_apigw'
+        #     Type: APIGW
+        #     Properties:
+        #       StageName: release
+        #       ServiceId:
+        #       HttpMethod: ANY
+      Type: "TencentCloud::Serverless::Function"
+Globals:
+  Function:
+    Timeout: 10
