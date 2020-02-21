@@ -1,4 +1,4 @@
-import { ActionTree, Action } from "vuex";
+import { ActionTree } from "vuex";
 
 import { submitResult } from "@/api/result";
 import { FinalResult } from "@/interfaces/result";

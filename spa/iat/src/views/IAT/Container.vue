@@ -47,6 +47,13 @@ export default class Container extends Vue {
     this.alreadyReadInstructions++;
   }
 
+  finishTestPack(testPack: TestPack, finishedTests: ChooseEventPayload[]) {
+    this.$store.commit(TYPES.FINISH_TEST_PACK, {
+      testPack: this.currentTestPack,
+      finishedTests: this.finishedTests
+    });
+  }
+
   handleChoose(payload: ChooseEventPayload) {
     if (!payload.valid) return;
     this.finishedTests.push(payload);
@@ -57,11 +64,14 @@ export default class Container extends Vue {
       // in current test pack
       this.currentTestIndex++;
     } else if (this.currentTestPackIndex < this.testPacks.length - 1) {
+      this.finishTestPack(this.currentTestPack, this.finishedTests);
+      this.finishedTests = [];
       // in next test pack
       this.alreadyReadInstructions = 0;
       this.currentTestPackIndex++;
       this.currentTestIndex = 0;
     } else {
+      this.finishTestPack(this.currentTestPack, this.finishedTests);
       // done test packs
       this.$store.dispatch(ACTIONS.SUBMIT_RESULT_ASYNC).then(res => {
         this.$router.push("/iat/result");
