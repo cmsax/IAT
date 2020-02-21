@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import IAT from "../views/IAT/IAT.vue";
+import Welcome from "../views/IAT/Welcome.vue";
+import Result from "../views/IAT/Result.vue";
+import Container from "../views/IAT/Container.vue";
 
 Vue.use(VueRouter);
 
@@ -18,6 +22,25 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/iat",
+    name: "IAT",
+    component: IAT,
+    children: [
+      {
+        path: "welcome",
+        component: Welcome
+      },
+      {
+        path: "main",
+        component: Container
+      },
+      {
+        path: "result",
+        component: Result
+      }
+    ]
   }
 ];
 

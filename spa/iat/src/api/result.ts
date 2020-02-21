@@ -1,10 +1,10 @@
 import { FinalResult } from "@/interfaces/result";
-import { POST } from "./index";
+import { POST, ReqParam } from "./index";
 
 export const submitResult = (data: FinalResult) => {
   const req = {
     data,
-    url: ""
+    url: "feiwei/iat"
   };
   return POST(req);
 };

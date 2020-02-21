@@ -14,7 +14,7 @@ let loading: any;
 const startLoading = () => {
   loading = Loading.service({
     lock: true,
-    text: "加载中……",
+    text: "正在提交……",
     background: "rgba(0, 0, 0, 0.7)"
   });
 };
@@ -41,8 +41,8 @@ export const axiosConfig = {
       // 未授权定向到登录
       if (data.status === 401) {
         error("Unauthorized.");
-        // router.push("/login");
       }
+      endLoading();
       return data;
     }
   ]
@@ -61,9 +61,14 @@ axios.interceptors.request.use(
   }
 );
 
-export const POST = (req: any) =>
+export const POST = (req: ReqParam) =>
   axios({
     method: "post",
     url: `/${req.url}`,
-    data: req.data
+    data: JSON.stringify(req.data)
   });
+
+export interface ReqParam {
+  url: string;
+  data: any;
+}

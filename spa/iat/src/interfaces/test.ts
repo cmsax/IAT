@@ -1,21 +1,15 @@
-export interface TestOption {
-  option: string;
-  optionValue: number;
-}
+import { Instruction } from "./instruction";
 
 export interface SingleTest {
   testDescription: string;
-  options: TestOption[];
-  testIndex: number;
+  positiveOrNegative: "positive" | "negative";
+  isImage: boolean;
+  imageURL?: string;
 }
 
-export interface SkippedTest {
-  skipElapsed: number;
-  test: SingleTest;
-}
-
-export interface FinishedTest {
-  finishElapsed: number;
-  test: SingleTest;
-  selectedOption: TestOption;
+export interface TestPack {
+  instruction: Instruction;
+  positiveTitle: string;
+  negativeTitle: string;
+  testCases: SingleTest[];
 }
