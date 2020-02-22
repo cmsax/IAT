@@ -142,10 +142,6 @@
           >{{ nextButtonText }}</el-button
         >
       </div>
-
-      <div v-if="!imageLoaded">
-        图片正在预加载：{{ imageLoadedPercentage }}%
-      </div>
     </div>
   </div>
 </template>
@@ -154,7 +150,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { Message } from "element-ui";
 import { UserInfo } from "@/interfaces/user";
-import { Words, Images } from "@/data";
+import { Words } from "@/data";
 import { TYPES } from "@/store/mutations";
 
 interface RateConfig {
@@ -165,8 +161,6 @@ interface RateConfig {
 @Component({})
 export default class Welcome extends Vue {
   private pageTitle = "项目说明 | 饮食内隐联想测验";
-  private images = Images;
-  private imageLoadedCount = 0;
   private tabs: string[] = ["welcome", "intro", "form"];
   private rate = 0;
   private dysopiaOptions = [
@@ -264,33 +258,6 @@ export default class Welcome extends Vue {
     return "下一步";
   }
 
-  get allImages() {
-    return [
-      ...this.images.warmImages,
-      ...this.images.coldImages,
-      this.images.coldImageIntro,
-      this.images.warmImageIntro
-    ];
-  }
-
-  get imageLoadedPercentage() {
-    return Math.floor((this.imageLoadedCount / this.allImages.length) * 100);
-  }
-
-  get imageLoaded() {
-    return this.imageLoadedCount === this.allImages.length;
-  }
-
-  preloadImages() {
-    for (const imgSrc of this.allImages) {
-      const tempImage = new Image();
-      tempImage.src = imgSrc;
-      tempImage.onload = () => {
-        this.imageLoadedCount++;
-      };
-    }
-  }
-
   submitForm() {
     if (!this.isValid) return;
     this.$store.commit(TYPES.UPDATE_USER_INFO, this.userInfoForm);
@@ -299,7 +266,6 @@ export default class Welcome extends Vue {
 
   created() {
     document.title = this.pageTitle;
-    this.preloadImages();
   }
   handleNext() {
     if (this.currentTabIndex < this.tabs.length - 1) {

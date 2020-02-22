@@ -34,12 +34,13 @@
     </el-row>
 
     <div class="image-or-instruction">
+      <!-- Active content -->
       <el-row v-if="active">
         <div v-if="testCase.isImage" class="image">
           <el-image
             :src="testCase.imageURL"
-            fit="cover"
-            style="width: 300px;"
+            fit="contain"
+            style="height: 300px;"
             :alt="testCase.testDescription"
           >
             <div slot="error" class="image-slot">
@@ -52,14 +53,24 @@
           <h2>{{ testCase.testDescription }}</h2>
         </div>
       </el-row>
+
+      <!-- Instructions -->
       <el-row v-else class="instruction" justify="center">
         <el-col>
           <h3>{{ optionalInstruction.title }}</h3>
-          <ul>
-            <li v-for="(cmd, index) in optionalInstruction.cmds" :key="index">
-              {{ cmd }}
-            </li>
-          </ul>
+          <el-row justify="center" type="flex">
+            <el-col :span="20">
+              <ul style="text-align:left; list-style:none;">
+                <li
+                  style="display: block; min-height:10px; margin:5px 0;"
+                  v-for="(cmd, index) in optionalInstruction.cmds"
+                  :key="index"
+                >
+                  {{ cmd }}
+                </li>
+              </ul>
+            </el-col>
+          </el-row>
         </el-col>
       </el-row>
     </div>
@@ -70,7 +81,13 @@
       </h2>
     </el-row>
     <el-row class="instruction">
-      <h4>{{ helpInfo }}</h4>
+      <h4>
+        {{
+          imageLoaded
+            ? helpInfo
+            : "图片正在预加载：" + imageLoadedPercentage + "%"
+        }}
+      </h4>
     </el-row>
   </div>
 </template>
@@ -79,6 +96,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { SingleTest } from "@/interfaces/test";
 import { Instruction } from "@/interfaces/instruction";
+import { Images } from "@/data";
 import { KEYS, ValidMap } from "@/constant";
 
 @Component
@@ -90,9 +108,43 @@ export default class TestBox extends Vue {
   @Prop() private positiveTitle!: string;
   @Prop() private negativeTitle!: string;
 
+  private images = Images;
+  private imageLoadedCount = 0;
+
   // milliseconds
   private lastTime!: number;
   private valid = true;
+
+  get allImages() {
+    return [
+      ...this.images.warmImages,
+      ...this.images.coldImages,
+      this.images.coldImageIntro,
+      this.images.warmImageIntro
+    ];
+  }
+
+  get imageLoadedPercentage() {
+    return Math.floor((this.imageLoadedCount / this.allImages.length) * 100);
+  }
+
+  get imageLoaded() {
+    return this.imageLoadedCount === this.allImages.length;
+  }
+
+  preloadImages() {
+    for (const imgSrc of this.allImages) {
+      const tempImage = new Image();
+      tempImage.src = imgSrc;
+      tempImage.onload = () => {
+        this.imageLoadedCount++;
+      };
+    }
+  }
+
+  created() {
+    this.preloadImages();
+  }
 
   mounted() {
     // 确保这里只绑定了一次
@@ -129,6 +181,9 @@ export default class TestBox extends Vue {
   }
 
   handleKeyUp(event: KeyboardEvent) {
+    if (!this.imageLoaded) {
+      return;
+    }
     if (!this.active) {
       if (event.keyCode === KEYS.continue) {
         // continue
