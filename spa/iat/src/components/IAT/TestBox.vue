@@ -50,7 +50,7 @@
           <h4>{{ testCase.testDescription }}</h4>
         </div>
         <div v-else>
-          <h2>{{ testCase.testDescription }}</h2>
+          <h1>{{ testCase.testDescription }}</h1>
         </div>
       </el-row>
 
@@ -224,7 +224,9 @@ export default class TestBox extends Vue {
       margin-right: 5px;
     }
   }
-
+  h1 {
+    color: black;
+  }
   h2 {
     color: red;
   }
@@ -235,7 +237,6 @@ export default class TestBox extends Vue {
   }
 
   h2 {
-    color: red;
     font-size: 800;
     text-transform: capitalize;
   }

@@ -42,6 +42,10 @@ export default class Container extends Vue {
     return this.alreadyReadInstructions > 0;
   }
 
+  created() {
+    document.title = "测试中";
+  }
+
   handleContinue() {
     this.alreadyReadInstructions++;
   }

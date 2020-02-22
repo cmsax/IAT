@@ -1,4 +1,5 @@
 import { TestPack, SingleTest } from "@/interfaces/test";
+import { Shuffle } from "@/core";
 
 export const Words = {
   positive: ["美味的", "可口的", "诱人的", "吸引人的", "令人垂涎的"],
@@ -74,7 +75,7 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "暖色食物图片",
     negativeTitle: "冷色食物图片",
-    testCases: [...baseImageTestCases, ...baseImageTestCases]
+    testCases: Shuffle([...baseImageTestCases, ...baseImageTestCases])
   },
   // p2
   {
@@ -93,7 +94,7 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "形容美味的词语",
     negativeTitle: "形容不美味的词语",
-    testCases: [...baseWordTestCases, ...baseWordTestCases]
+    testCases: Shuffle([...baseWordTestCases, ...baseWordTestCases])
   },
   // p3
   {
@@ -110,7 +111,7 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "形容美味的词语 或 暖色食物图片",
     negativeTitle: "形容不美味的词语 或 冷色食物图片",
-    testCases: [...baseWordTestCases, ...baseImageTestCases]
+    testCases: Shuffle([...baseWordTestCases, ...baseImageTestCases])
   },
   // p4 check
   {
@@ -127,12 +128,12 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "形容美味的词语 或 暖色食物图片",
     negativeTitle: "形容不美味的词语 或 冷色食物图片",
-    testCases: [
+    testCases: Shuffle([
       ...baseWordTestCases,
       ...baseImageTestCases,
       ...baseWordTestCases,
       ...baseImageTestCases
-    ]
+    ])
   },
   // p5 reversed
   {
@@ -150,7 +151,7 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "冷色食物图片",
     negativeTitle: "暖色食物图片",
-    testCases: [...reversedImageTestCases, ...reversedImageTestCases]
+    testCases: Shuffle([...reversedImageTestCases, ...reversedImageTestCases])
   },
   // p6 reversed
   {
@@ -168,7 +169,7 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "形容美味的词语 或 冷色食物图片",
     negativeTitle: "形容不美味的词语 或 暖色食物图片",
-    testCases: [...baseWordTestCases, ...reversedImageTestCases]
+    testCases: Shuffle([...baseWordTestCases, ...reversedImageTestCases])
   },
   // p7 reversed check
   {
@@ -186,11 +187,11 @@ export const TestPacks: TestPack[] = [
     },
     positiveTitle: "形容美味的词语 或 冷色食物图片",
     negativeTitle: "形容不美味的词语 或 暖色食物图片",
-    testCases: [
+    testCases: Shuffle([
       ...baseWordTestCases,
       ...reversedImageTestCases,
       ...baseWordTestCases,
       ...reversedImageTestCases
-    ]
+    ])
   }
 ];

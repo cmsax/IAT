@@ -149,7 +149,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { UserInfo } from "@/interfaces/user";
-import { Words } from "@/data";
+import { Words, Images } from "@/data";
 import { TYPES } from "@/store/mutations";
 
 interface RateConfig {
@@ -161,6 +161,7 @@ interface RateConfig {
 export default class Welcome extends Vue {
   private pageTitle = "项目说明 | 饮食内隐联想测验";
   private tabs: string[] = ["welcome", "intro", "form"];
+  private images = Images;
   private rate = 0;
   private dysopiaOptions = [
     ["否", "none"],
