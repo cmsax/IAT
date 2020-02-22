@@ -13,10 +13,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
-import { TestPack, SingleTest } from "@/interfaces/test";
-import { Instruction } from "@/interfaces/instruction";
+import { TestPack } from "@/interfaces/test";
 import { ChooseEventPayload } from "@/interfaces/payload";
 import { ACTIONS } from "@/store/actions";
 import { TYPES } from "@/store/mutations";
@@ -49,8 +48,8 @@ export default class Container extends Vue {
 
   finishTestPack(testPack: TestPack, finishedTests: ChooseEventPayload[]) {
     this.$store.commit(TYPES.FINISH_TEST_PACK, {
-      testPack: this.currentTestPack,
-      finishedTests: this.finishedTests
+      testPack,
+      finishedTests
     });
   }
 
@@ -74,6 +73,7 @@ export default class Container extends Vue {
       this.finishTestPack(this.currentTestPack, this.finishedTests);
       // done test packs
       this.$store.dispatch(ACTIONS.SUBMIT_RESULT_ASYNC).then(res => {
+        // TODO check res
         this.$router.push("/iat/result");
       });
     }

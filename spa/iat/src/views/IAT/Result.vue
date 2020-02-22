@@ -5,9 +5,9 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { getDefaultState } from "@/store/state";
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+// import { getDefaultState } from "@/store/state";
 import { TYPES } from "@/store/mutations";
 @Component({})
 export default class Result extends Vue {

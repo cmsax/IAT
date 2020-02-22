@@ -148,7 +148,6 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { Message } from "element-ui";
 import { UserInfo } from "@/interfaces/user";
 import { Words } from "@/data";
 import { TYPES } from "@/store/mutations";

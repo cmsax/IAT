@@ -1,5 +1,8 @@
 <template>
-  <div id="home" :style="{ backgroundImage: 'url(\'' + require('@/assets/ill.svg') + '\')' }">
+  <div
+    id="home"
+    :style="{ backgroundImage: 'url(\'' + require('@/assets/ill.svg') + '\')' }"
+  >
     <div class="container">
       <div class="title">
         <h1>{{ pageTitle }}</h1>
@@ -17,8 +20,8 @@
           </el-row>
           <el-row type="flex" align="middle">
             <el-col :span="18">
-              <h4>{{card.title}}</h4>
-              <p>{{card.desc}}</p>
+              <h4>{{ card.title }}</h4>
+              <p>{{ card.desc }}</p>
             </el-col>
             <el-col :span="6" style="text-align:right;">
               <router-link :to="card.path">
@@ -32,8 +35,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { Vue, Component, Prop } from "vue-property-decorator";
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
 import { Card } from "@/interfaces/card";
 
 @Component({})

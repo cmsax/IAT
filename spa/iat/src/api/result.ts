@@ -1,5 +1,5 @@
 import { FinalResult } from "@/interfaces/result";
-import { POST, ReqParam } from "./index";
+import { POST } from "./index";
 
 export const submitResult = (data: FinalResult) => {
   const req = {
