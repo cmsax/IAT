@@ -31,29 +31,30 @@
           <h3>1.形容美味的词语：</h3>
           <p>
             <el-tag
+              style="background-color: transparent; color: black; margin-right: 5px;"
               v-for="(word, index) in words.positive"
               :key="'positive-word-' + index"
-              effect="dark"
-              type=""
-              style="margin-right: 5px;"
               >{{ word }}</el-tag
             >
           </p>
           <h3>2.形容不美味的词语：</h3>
           <p>
             <el-tag
+              style="background-color: transparent; color: black; margin-right: 5px;"
               v-for="(word, index) in words.negative"
               :key="'negative-word-' + index"
-              effect="dark"
-              type="danger"
-              style="margin-right: 5px;"
               >{{ word }}</el-tag
             >
           </p>
           <h3>3.暖色食物图片</h3>
-          <p><el-image :src="require('@/assets/warm.png')"> </el-image></p>
+          <p style="text-indent:0;">
+            <el-image :src="images.warmImageIntro"> </el-image>
+          </p>
           <h3>4.冷色食物图片</h3>
-          <p><el-image :src="require('@/assets/cold.png')"></el-image></p>
+          <p style="text-indent:0;">
+            <el-image :src="images.coldImageIntro"></el-image>
+          </p>
+          <p>本测验一共有七个部分，每部分开始前会有操作说明，请您认真阅读。</p>
         </el-tab-pane>
 
         <!-- 基本表单信息 -->
@@ -141,6 +142,10 @@
           >{{ nextButtonText }}</el-button
         >
       </div>
+
+      <div v-if="!imageLoaded">
+        图片正在预加载：{{ imageLoadedPercentage }}%
+      </div>
     </div>
   </div>
 </template>
@@ -149,7 +154,7 @@
 import { Vue, Component } from "vue-property-decorator";
 import { Message } from "element-ui";
 import { UserInfo } from "@/interfaces/user";
-import { Words } from "@/data";
+import { Words, Images } from "@/data";
 import { TYPES } from "@/store/mutations";
 
 interface RateConfig {
@@ -160,6 +165,8 @@ interface RateConfig {
 @Component({})
 export default class Welcome extends Vue {
   private pageTitle = "项目说明 | 饮食内隐联想测验";
+  private images = Images;
+  private imageLoadedCount = 0;
   private tabs: string[] = ["welcome", "intro", "form"];
   private rate = 0;
   private dysopiaOptions = [
@@ -257,6 +264,33 @@ export default class Welcome extends Vue {
     return "下一步";
   }
 
+  get allImages() {
+    return [
+      ...this.images.warmImages,
+      ...this.images.coldImages,
+      this.images.coldImageIntro,
+      this.images.warmImageIntro
+    ];
+  }
+
+  get imageLoadedPercentage() {
+    return Math.floor((this.imageLoadedCount / this.allImages.length) * 100);
+  }
+
+  get imageLoaded() {
+    return this.imageLoadedCount === this.allImages.length;
+  }
+
+  preloadImages() {
+    for (const imgSrc of this.allImages) {
+      const tempImage = new Image();
+      tempImage.src = imgSrc;
+      tempImage.onload = () => {
+        this.imageLoadedCount++;
+      };
+    }
+  }
+
   submitForm() {
     if (!this.isValid) return;
     this.$store.commit(TYPES.UPDATE_USER_INFO, this.userInfoForm);
@@ -265,6 +299,7 @@ export default class Welcome extends Vue {
 
   created() {
     document.title = this.pageTitle;
+    this.preloadImages();
   }
   handleNext() {
     if (this.currentTabIndex < this.tabs.length - 1) {
