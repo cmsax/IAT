@@ -169,7 +169,7 @@ export default class TestBox extends Vue {
     //   );
     // }
     if (!this.active) {
-      return "请按空格继续";
+      return "请您阅读完说明后，按 空格键 继续";
     }
     return "";
   }
