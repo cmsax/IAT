@@ -1,5 +1,5 @@
 export interface UserInfo {
-  birthYear: number;
+  birthYear: string;
   gender: 0 | 1 | 2;
   edu: "mid" | "sen" | "bachelor" | "graduate" | "doctor" | "";
   dysopia:

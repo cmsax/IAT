@@ -1,5 +1,6 @@
 import { ChooseEventPayload } from "./payload";
 import { SingleTest, TestPack } from "./test";
+import { UserInfo } from "@/interfaces/user";
 
 export interface UserLeaveSpan {
   leaveStart: number;
@@ -23,4 +24,6 @@ export interface FinalResult {
   finishedTestPacks: FinishedTestPack[];
   // 是否已经完成所有的测试
   finished: boolean;
+  // 用户信息
+  userInfo: UserInfo;
 }

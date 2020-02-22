@@ -7,7 +7,15 @@ export const getDefaultState = (): FinalResult => {
     testEnd: null,
     userLeaveSpans: [],
     finishedTestPacks: [],
-    finished: false
+    finished: false,
+    userInfo: {
+      birthYear: "",
+      gender: 2,
+      edu: "",
+      dysopia: "",
+      relation: "",
+      hunger: 0
+    }
   };
 };
 

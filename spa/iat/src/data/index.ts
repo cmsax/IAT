@@ -1,5 +1,9 @@
 import { TestPack } from "@/interfaces/test";
 
+export const Words = {
+  positive: ["美味的", "可口的", "诱人的", "吸引人的", "令人垂涎的"],
+  negative: ["乏味的", "不吸引人的", "无味的", "不好吃的", "不美味的"]
+};
 export const TestPacks: TestPack[] = [
   {
     positiveTitle: "好的",

@@ -149,6 +149,8 @@
 import { Vue, Component } from "vue-property-decorator";
 import { Message } from "element-ui";
 import { UserInfo } from "@/interfaces/user";
+import { Words } from "@/data";
+import { TYPES } from "@/store/mutations";
 
 interface RateConfig {
   texts: string[];
@@ -187,10 +189,7 @@ export default class Welcome extends Vue {
     ["离婚", "divorced"],
     ["其它", "other"]
   ];
-  private words = {
-    positive: ["美味的", "可口的", "诱人的", "吸引人的", "令人垂涎的"],
-    negative: ["乏味的", "不吸引人的", "无味的", "不好吃的", "不美味的"]
-  };
+  private words = Words;
   private currentTabIndex = 0;
   private userFormName = "userBaiscForm";
   private rateConfig: RateConfig = {
@@ -209,7 +208,7 @@ export default class Welcome extends Vue {
   };
 
   private userInfoForm: UserInfo = {
-    birthYear: 0,
+    birthYear: "",
     gender: 2,
     edu: "",
     dysopia: "",
@@ -218,8 +217,11 @@ export default class Welcome extends Vue {
   };
 
   get isValid() {
+    if (!this.userInfoForm.birthYear) return false;
+    if (this.userInfoForm.birthYear === "") return false;
+    const year = parseInt(this.userInfoForm.birthYear);
+    if (year < 1940 || year > 2015) return false;
     if (
-      this.userInfoForm.birthYear == 0 ||
       this.userInfoForm.gender === 2 ||
       this.userInfoForm.edu === "" ||
       this.userInfoForm.dysopia === "" ||
@@ -236,12 +238,9 @@ export default class Welcome extends Vue {
   }
 
   get buttonDisabled() {
-    if (this.isLastTab) {
-      if (!this.isValid) {
-        return true;
-      }
-    }
-    return false;
+    if (!this.isLastTab) return false;
+    if (this.isValid) return false;
+    return true;
   }
 
   get nextButtonHandler() {
@@ -259,13 +258,9 @@ export default class Welcome extends Vue {
   }
 
   submitForm() {
-    if (this.isValid) {
-      console.log("submit");
-      this.$router.push("/iat/main");
-    } else {
-      Message.error("fuck you");
-      console.log("error");
-    }
+    if (!this.isValid) return;
+    this.$store.commit(TYPES.UPDATE_USER_INFO, this.userInfoForm);
+    this.$router.push("/iat/main");
   }
 
   created() {
