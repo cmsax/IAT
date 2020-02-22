@@ -3,8 +3,14 @@
     <el-row type="flex" justify="space-between">
       <el-col>
         <el-row class="indicator">
-          Press
-          <el-button class="button" size="mini" icon="el-icon-back" circle></el-button>for
+          按下
+          <el-button
+            style="padding: 8px 10px; font-size:14px;"
+            class="button"
+            size="mini"
+            circle
+            >e</el-button
+          >表示
         </el-row>
         <el-row>
           <h2>{{ positiveTitle }}</h2>
@@ -12,8 +18,14 @@
       </el-col>
       <el-col>
         <el-row class="indicator">
-          Press
-          <el-button class="button" size="mini" icon="el-icon-right" circle></el-button>for
+          按下
+          <el-button
+            style="padding: 8px 12px; font-size:14px;"
+            class="button"
+            size="mini"
+            circle
+            >i</el-button
+          >表示
         </el-row>
         <el-row>
           <h2>{{ negativeTitle }}</h2>
@@ -44,7 +56,9 @@
         <el-col>
           <h3>{{ optionalInstruction.title }}</h3>
           <ul>
-            <li v-for="(cmd, index) in optionalInstruction.cmds" :key="index">{{ cmd }}</li>
+            <li v-for="(cmd, index) in optionalInstruction.cmds" :key="index">
+              {{ cmd }}
+            </li>
           </ul>
         </el-col>
       </el-row>
@@ -91,17 +105,17 @@ export default class TestBox extends Vue {
   }
 
   get helpInfo() {
-    if (this.active && !this.valid) {
-      const isCurrentPositive =
-        this.testCase!.positiveOrNegative === "positive";
-      return (
-        "当前是" +
-        (isCurrentPositive ? "积极的" : "消极的") +
-        "，请按 " +
-        (isCurrentPositive ? "左" : "右") +
-        "方向键继续。"
-      );
-    }
+    // if (this.active && !this.valid) {
+    //   const isCurrentPositive =
+    //     this.testCase!.positiveOrNegative === "positive";
+    //   return (
+    //     "当前是" +
+    //     (isCurrentPositive ? "积极的" : "消极的") +
+    //     "，请按 " +
+    //     (isCurrentPositive ? "左" : "右") +
+    //     "方向键继续。"
+    //   );
+    // }
     if (!this.active) {
       return "请按空格继续";
     }
@@ -112,10 +126,6 @@ export default class TestBox extends Vue {
     const elapsed = Date.now() - this.lastTime;
     this.lastTime = Date.now();
     return elapsed;
-  }
-
-  updated() {
-    console.log("current test:", this.testCase);
   }
 
   handleKeyUp(event: KeyboardEvent) {

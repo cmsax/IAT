@@ -1,8 +1,8 @@
 export const KEYS = {
-  // left
-  positive: 37,
-  // right
-  negative: 39,
+  // E
+  positive: 69,
+  // I
+  negative: 73,
   // spance
   continue: 32
 };
