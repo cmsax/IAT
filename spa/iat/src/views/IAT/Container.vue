@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 import { TestPack, SingleTest } from "@/interfaces/test";
@@ -80,3 +80,9 @@ export default class Container extends Vue {
   }
 }
 </script>
+
+<style lang="less">
+#test-container {
+  padding-top: 60px;
+}
+</style>
