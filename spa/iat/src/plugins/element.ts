@@ -5,7 +5,6 @@ import {
   Col,
   DatePicker,
   Image,
-  Radio,
   RadioButton,
   RadioGroup,
   Form,
@@ -22,7 +21,6 @@ Vue.use(Col);
 Vue.use(Row);
 Vue.use(Image);
 Vue.use(Alert);
-Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(Tabs);
 Vue.use(DatePicker);

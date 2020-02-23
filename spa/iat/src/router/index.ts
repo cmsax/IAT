@@ -23,11 +23,7 @@ const routes = [
     path: "/iat",
     name: "IAT",
     component: IAT,
-    beforeEnter: (
-      to: Route,
-      from: Route,
-      next: (to?: string | boolean) => void
-    ) => {
+    beforeEnter: (to: Route, from: Route, next: (to?: any) => void) => {
       if (from.path === "/" && (to.path === "/iat" || to.path === "/iat/")) {
         next("/iat/welcome");
       }
