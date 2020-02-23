@@ -2,7 +2,11 @@
   <div id="welcome" v-page-title :data-title="pageTitle">
     <div class="container">
       <h1>欢迎参加“饮食内隐联想测验”！</h1>
-      <el-tabs :value="tabs[currentTabIndex]" style="min-height: 400px;">
+      <el-tabs
+        :value="tabs[currentTabIndex]"
+        :before-leave="handleTabLeave"
+        style="min-height: 400px;"
+      >
         <!-- 项目简介 -->
         <el-tab-pane label="项目简介" name="welcome" :disabled="true">
           <h2>项目简介</h2>
@@ -159,9 +163,9 @@ interface RateConfig {
 
 @Component({})
 export default class Welcome extends Vue {
+  // config
   private tabs: string[] = ["welcome", "intro", "form"];
   private images = Images;
-  private rate = 0;
   private dysopiaOptions = [
     ["否", "none"],
     ["红色盲", "red_all"],
@@ -190,8 +194,6 @@ export default class Welcome extends Vue {
     ["其它", "other"]
   ];
   private words = Words;
-  private currentTabIndex = 0;
-  private userFormName = "userBaiscForm";
   private rateConfig: RateConfig = {
     texts: [
       "非常饿",
@@ -206,7 +208,17 @@ export default class Welcome extends Vue {
     ],
     iconClasses: ["el-icon-goblet", "el-icon-goblet-full", "el-icon-food"]
   };
-
+  // page state
+  private currentTabIndex = 0;
+  private userFormName = "userBaiscForm";
+  // user data
+  private rate = 0;
+  private welcomeStats = {
+    readInstructionStart: 0,
+    readInstructionEnd: 0,
+    userInfoStart: 0,
+    userInfoEnd: 0
+  };
   private userInfoForm: UserInfo = {
     birthYear: "",
     gender: 2,
@@ -251,6 +263,7 @@ export default class Welcome extends Vue {
   }
 
   get nextButtonHandler() {
+    // handle next
     if (this.isLastTab) {
       return this.submitForm;
     }
@@ -264,17 +277,37 @@ export default class Welcome extends Vue {
     return "下一步";
   }
 
+  created() {
+    this.welcomeStats.readInstructionStart = Date.now();
+  }
+
+  handleTabLeave(toTabName: string) {
+    if (
+      toTabName === this.tabs[2] &&
+      this.welcomeStats.readInstructionEnd === 0 &&
+      this.welcomeStats.userInfoStart === 0
+    ) {
+      console.log(toTabName);
+      this.welcomeStats.readInstructionEnd = Date.now();
+      this.welcomeStats.userInfoStart = Date.now();
+    }
+  }
+
+  logUserStats() {
+    this.$store.commit(TYPES.LOG_WELCOME_STATS, this.welcomeStats);
+  }
+
   submitForm() {
     if (!this.isValid) return;
     this.$store.commit(TYPES.UPDATE_USER_INFO, this.userInfoForm);
+    this.welcomeStats.userInfoEnd = Date.now();
+    this.$store.commit(TYPES.LOG_WELCOME_STATS, this.welcomeStats);
     this.$router.push("/iat/main");
   }
 
   handleNext() {
     if (this.currentTabIndex < this.tabs.length - 1) {
       this.currentTabIndex++;
-    } else {
-      this.$router.push("/iat/main");
     }
   }
 

@@ -13,9 +13,17 @@ export interface FinishedTestPack {
   finishedTests: ChooseEventPayload[];
 }
 
+export interface UserWelcomeStats {
+  readInstructionStart: number | null;
+  readInstructionEnd: number | null;
+  userInfoStart: number | null;
+  userInfoEnd: number | null;
+}
+
 export interface FinalResult {
   // 用户接受隐私协议的时间戳
   userAcceptPrivacyTime: number | null;
+  userWelcomStats: UserWelcomeStats;
   testStart: number | null;
   testEnd: number | null;
   // 用户离开当前页面

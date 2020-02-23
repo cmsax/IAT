@@ -5,6 +5,12 @@ export const getDefaultState = (): FinalResult => {
     userAcceptPrivacyTime: null,
     testStart: null,
     testEnd: null,
+    userWelcomStats: {
+      readInstructionStart: 0,
+      readInstructionEnd: 0,
+      userInfoStart: 0,
+      userInfoEnd: 0
+    },
     userLeaveSpans: [],
     finishedTestPacks: [],
     finished: false,
