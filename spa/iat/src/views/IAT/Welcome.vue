@@ -52,11 +52,11 @@
           </p>
           <h3>3.暖色食物图片</h3>
           <p style="text-indent:0;">
-            <el-image :src="images.warmImageIntro"> </el-image>
+            <img :src="images.warmImageIntro" style="width: 100%;" />
           </p>
           <h3>4.冷色食物图片</h3>
           <p style="text-indent:0;">
-            <el-image :src="images.coldImageIntro"></el-image>
+            <img :src="images.coldImageIntro" style="width: 100%;" />
           </p>
           <p>本测验一共有七个部分，每部分开始前会有操作说明，请您认真阅读。</p>
         </el-tab-pane>
