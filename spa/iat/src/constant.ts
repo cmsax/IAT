@@ -3,7 +3,7 @@ export const KEYS = {
   positive: 69,
   // I
   negative: 73,
-  // spance
+  // space
   continue: 32
 };
 

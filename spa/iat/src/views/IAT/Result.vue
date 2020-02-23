@@ -3,7 +3,7 @@
     <div class="container">
       <el-row type="flex" class="row">
         <el-col :span="10" style="float:left; display:block;">
-          <el-image :src="require('@/assets/result.svg')"></el-image>
+          <el-image :src="`${staticBase}result.svg`"></el-image>
         </el-col>
         <el-col :span="14">
           <h1>
@@ -20,6 +20,10 @@
             基于不同的个人经历和接触不同的社会信息，最终结果可能不一样。
             <!-- 你可能会想知道自己测试的结果，你可以点击[继续]查看结果。 -->
           </p>
+          <h2 style="text-align:left;">测验结果</h2>
+          <p>
+            {{ scoreExplanation }}
+          </p>
         </el-col>
       </el-row>
     </div>
@@ -29,10 +33,23 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { TYPES } from "@/store/mutations";
+import { FinalResult } from "@/interfaces/result";
+import { cdnBase } from "@/data";
+import { DScore, DScoreExplanation } from "@/core";
 @Component({})
 export default class Result extends Vue {
   private pageTitle = "测验完成 | 饮食内隐联想测验";
-  mounted() {
+  private staticBase = cdnBase;
+
+  get score() {
+    return DScore((this.$store.state as FinalResult).finishedTestPacks);
+  }
+
+  get scoreExplanation() {
+    return DScoreExplanation(this.score);
+  }
+
+  created() {
     if (!this.$store.state.finished) {
       this.$router.push("/iat/welcome");
     }
@@ -42,7 +59,7 @@ export default class Result extends Vue {
 
 <style lang="less">
 section.design {
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 80px;
   padding-bottom: 40px;
   padding: 120px 0;

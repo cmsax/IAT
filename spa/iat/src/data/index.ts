@@ -6,7 +6,7 @@ export const Words = {
   negative: ["乏味的", "不吸引人的", "无味的", "不好吃的", "不美味的"]
 };
 
-const cdnBase =
+export const cdnBase =
   "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/";
 const warmImages = [];
 const coldImages = [];

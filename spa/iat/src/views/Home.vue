@@ -3,7 +3,7 @@
     id="home"
     v-page-title
     :data-title="pageTitle"
-    :style="{ backgroundImage: 'url(\'' + require('@/assets/ill.svg') + '\')' }"
+    :style="{ backgroundImage: `url('${staticBase}ill.svg')` }"
   >
     <div class="container">
       <div class="title">
@@ -40,6 +40,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { Card } from "@/interfaces/card";
+import { cdnBase } from "@/data";
 
 @Component({})
 export default class Home extends Vue {
@@ -53,6 +54,7 @@ export default class Home extends Vue {
       path: "/iat/welcome"
     }
   ];
+  private staticBase = cdnBase;
 
   get pageTitle() {
     return "进行中的项目";
