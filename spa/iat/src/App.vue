@@ -12,6 +12,7 @@ import { Route } from "vue-router";
 @Component({})
 export default class App extends Vue {
   private transitionName = "";
+  private name = "app";
 
   @Watch("$route")
   onRouteChange(to: Route, from: Route) {

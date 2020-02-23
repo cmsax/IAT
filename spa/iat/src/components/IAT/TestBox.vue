@@ -204,10 +204,8 @@ export default class TestBox extends Vue {
 
   handleUserLeave() {
     if (document.hidden) {
-      console.log("user leave");
       this.userLeaveSpan.leaveStart = Date.now();
     } else {
-      console.log("user come back");
       if (this.userLeaveSpan.leaveStart != 0) {
         this.userLeaveSpan.leaveEnd = Date.now();
         this.userLeaveSpan.currentTest = this.testCase as SingleTest;
