@@ -1,7 +1,8 @@
 import {
   FinalResult,
   FinishedTestPack,
-  UserWelcomeStats
+  UserWelcomeStats,
+  UserLeaveSpan
 } from "@/interfaces/result";
 import { UserInfo } from "@/interfaces/user";
 import defaultState from "./state";
@@ -12,6 +13,7 @@ export const TYPES = {
   SUBMIT_SUCCESS: "SUBMIT_SUCCESS",
   UPDATE_USER_INFO: "UPDATE_USER_INFO",
   LOG_WELCOME_STATS: "LOG_WELCOME_STATS",
+  LOG_USER_LEAVE: "LOG_USER_LEAVE",
 
   RESET: "RESET"
 };
@@ -36,6 +38,11 @@ export default {
   [TYPES.UPDATE_USER_INFO](state: FinalResult, payload: UserInfo) {
     state.userInfo = payload;
     state.userInfoValid = true;
+  },
+
+  // 记录用户离开
+  [TYPES.LOG_USER_LEAVE](state: FinalResult, payload: UserLeaveSpan) {
+    state.userLeaveSpans.push(payload);
   },
 
   // RESET

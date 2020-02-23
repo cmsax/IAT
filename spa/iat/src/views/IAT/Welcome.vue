@@ -287,7 +287,6 @@ export default class Welcome extends Vue {
       this.welcomeStats.readInstructionEnd === 0 &&
       this.welcomeStats.userInfoStart === 0
     ) {
-      console.log(toTabName);
       this.welcomeStats.readInstructionEnd = Date.now();
       this.welcomeStats.userInfoStart = Date.now();
     }

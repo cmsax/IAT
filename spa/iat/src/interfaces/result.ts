@@ -5,7 +5,9 @@ import { UserInfo } from "@/interfaces/user";
 export interface UserLeaveSpan {
   leaveStart: number;
   leaveEnd: number;
-  currentTest: SingleTest;
+  currentTest: SingleTest | null;
+  currentTestPackIndex: number;
+  notIntro: boolean;
 }
 
 export interface FinishedTestPack {

@@ -96,8 +96,10 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { SingleTest } from "@/interfaces/test";
 import { Instruction } from "@/interfaces/instruction";
+import { UserLeaveSpan } from "@/interfaces/result";
 import { Images } from "@/data";
 import { KEYS, ValidMap } from "@/constant";
+import { TYPES } from "../../store/mutations";
 
 @Component
 export default class TestBox extends Vue {
@@ -107,6 +109,7 @@ export default class TestBox extends Vue {
   @Prop() private optionalInstruction?: Instruction;
   @Prop() private positiveTitle!: string;
   @Prop() private negativeTitle!: string;
+  @Prop() private currentTestPackIndex!: number;
 
   private images = Images;
   private imageLoadedCount = 0;
@@ -114,6 +117,13 @@ export default class TestBox extends Vue {
   // milliseconds
   private lastTime!: number;
   private valid = true;
+  private userLeaveSpan: UserLeaveSpan = {
+    leaveStart: 0,
+    leaveEnd: 0,
+    currentTest: null,
+    currentTestPackIndex: 0,
+    notIntro: false
+  };
 
   get allImages() {
     return [
@@ -130,6 +140,16 @@ export default class TestBox extends Vue {
 
   get imageLoaded() {
     return this.imageLoadedCount === this.allImages.length;
+  }
+
+  resetLeaveSpan() {
+    this.userLeaveSpan = {
+      leaveStart: 0,
+      leaveEnd: 0,
+      currentTest: null,
+      currentTestPackIndex: 0,
+      notIntro: false
+    };
   }
 
   preloadImages() {
@@ -149,11 +169,13 @@ export default class TestBox extends Vue {
   mounted() {
     // 确保这里只绑定了一次
     window.addEventListener("keyup", this.handleKeyUp);
+    window.addEventListener("visibilitychange", this.handleUserLeave);
     this.lastTime = Date.now();
   }
 
   beforeDestroy() {
     window.removeEventListener("keyup", this.handleKeyUp);
+    window.removeEventListener("visibilitychange", this.handleUserLeave);
   }
 
   get helpInfo() {
@@ -169,7 +191,7 @@ export default class TestBox extends Vue {
     //   );
     // }
     if (!this.active) {
-      return "请您阅读完说明后，按 空格键 继续";
+      return "当您阅读完说明后，如果准备好了，请按 空格键 继续测验";
     }
     return "";
   }
@@ -178,6 +200,23 @@ export default class TestBox extends Vue {
     const elapsed = Date.now() - this.lastTime;
     this.lastTime = Date.now();
     return elapsed;
+  }
+
+  handleUserLeave() {
+    if (document.hidden) {
+      console.log("user leave");
+      this.userLeaveSpan.leaveStart = Date.now();
+    } else {
+      console.log("user come back");
+      if (this.userLeaveSpan.leaveStart != 0) {
+        this.userLeaveSpan.leaveEnd = Date.now();
+        this.userLeaveSpan.currentTest = this.testCase as SingleTest;
+        this.userLeaveSpan.currentTestPackIndex = this.currentTestPackIndex;
+        this.userLeaveSpan.notIntro = this.active;
+        this.$store.commit(TYPES.LOG_USER_LEAVE, this.userLeaveSpan);
+        this.resetLeaveSpan();
+      }
+    }
   }
 
   handleKeyUp(event: KeyboardEvent) {

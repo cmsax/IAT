@@ -6,6 +6,7 @@
       :positive-title="currentTestPack.positiveTitle"
       :negative-title="currentTestPack.negativeTitle"
       :optional-instruction="currentTestPack.instruction"
+      :current-test-pack-index="currentTestPackIndex"
       @choosePositiveOrNegative="handleChoose"
       @continue="handleContinue"
     ></test-box>
@@ -51,6 +52,12 @@ export default class Container extends Vue {
     if (!(this.$store.state as FinalResult).userInfoValid) {
       this.$router.push("/iat/welcome");
     }
+  }
+
+  mounted() {
+    window.onbeforeunload = function(e: Event) {
+      e.returnValue = true;
+    };
   }
 
   handleContinue() {
