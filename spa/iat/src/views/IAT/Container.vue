@@ -1,5 +1,5 @@
 <template>
-  <div id="test-container">
+  <div id="test-container" v-page-title :data-title="pageTitle">
     <test-box
       :active="alreadyReadInstructions"
       :test-case="currentTestCase"
@@ -16,6 +16,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { TestPack } from "@/interfaces/test";
+import { FinalResult } from "@/interfaces/result";
 import { ChooseEventPayload } from "@/interfaces/payload";
 import { ACTIONS } from "@/store/actions";
 import { TYPES } from "@/store/mutations";
@@ -42,8 +43,14 @@ export default class Container extends Vue {
     return this.alreadyReadInstructions > 0;
   }
 
+  get pageTitle() {
+    return `第 ${this.currentTestPackIndex + 1} 部分 | 饮食内隐联想测验`;
+  }
+
   created() {
-    document.title = "测试中";
+    if (!(this.$store.state as FinalResult).userInfoValid) {
+      this.$router.push("/iat/welcome");
+    }
   }
 
   handleContinue() {

@@ -15,7 +15,8 @@ export const getDefaultState = (): FinalResult => {
       dysopia: "",
       relation: "",
       hunger: 0
-    }
+    },
+    userInfoValid: false
   };
 };
 

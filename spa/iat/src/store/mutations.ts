@@ -7,6 +7,7 @@ export const TYPES = {
   FINISH_TEST_PACK: "FINISH_TEST_PACK",
   SUBMIT_SUCCESS: "SUBMIT_SUCCESS",
   UPDATE_USER_INFO: "UPDATE_USER_INFO",
+
   RESET: "RESET"
 };
 
@@ -24,6 +25,7 @@ export default {
   // 更新用户基本信息
   [TYPES.UPDATE_USER_INFO](state: FinalResult, data: UserInfo) {
     state.userInfo = data;
+    state.userInfoValid = true;
   },
 
   // RESET

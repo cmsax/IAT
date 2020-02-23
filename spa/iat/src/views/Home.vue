@@ -1,6 +1,8 @@
 <template>
   <div
     id="home"
+    v-page-title
+    :data-title="pageTitle"
     :style="{ backgroundImage: 'url(\'' + require('@/assets/ill.svg') + '\')' }"
   >
     <div class="container">
@@ -52,10 +54,8 @@ export default class Home extends Vue {
     }
   ];
 
-  private pageTitle = "进行中的项目";
-
-  created() {
-    document.title = this.pageTitle;
+  get pageTitle() {
+    return "进行中的项目";
   }
 }
 </script>

@@ -26,4 +26,5 @@ export interface FinalResult {
   finished: boolean;
   // 用户信息
   userInfo: UserInfo;
+  userInfoValid: boolean;
 }

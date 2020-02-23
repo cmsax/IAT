@@ -1,5 +1,5 @@
 <template>
-  <div id="welcome">
+  <div id="welcome" v-page-title :data-title="pageTitle">
     <div class="container">
       <h1>欢迎参加“饮食内隐联想测验”！</h1>
       <el-tabs :value="tabs[currentTabIndex]" style="min-height: 400px;">
@@ -159,7 +159,6 @@ interface RateConfig {
 
 @Component({})
 export default class Welcome extends Vue {
-  private pageTitle = "项目说明 | 饮食内隐联想测验";
   private tabs: string[] = ["welcome", "intro", "form"];
   private images = Images;
   private rate = 0;
@@ -234,6 +233,13 @@ export default class Welcome extends Vue {
     return true;
   }
 
+  get pageTitle() {
+    if (this.isLastTab) {
+      return "请填写您的基本信息 | 饮食内隐联想测验";
+    }
+    return "项目说明 | 饮食内隐联想测验";
+  }
+
   get isLastTab() {
     return this.currentTabIndex === this.tabs.length - 1;
   }
@@ -264,9 +270,6 @@ export default class Welcome extends Vue {
     this.$router.push("/iat/main");
   }
 
-  created() {
-    document.title = this.pageTitle;
-  }
   handleNext() {
     if (this.currentTabIndex < this.tabs.length - 1) {
       this.currentTabIndex++;
@@ -274,6 +277,7 @@ export default class Welcome extends Vue {
       this.$router.push("/iat/main");
     }
   }
+
   handlePrev() {
     if (this.currentTabIndex > 0) {
       this.currentTabIndex--;

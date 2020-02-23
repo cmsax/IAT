@@ -6,6 +6,7 @@
     "name": "Mingshi Cai",
     "url": "https://unoiou.com"
   },
+  "license": "MIT",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
