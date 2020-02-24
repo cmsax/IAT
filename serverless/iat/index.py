@@ -3,7 +3,7 @@ import sqlalchemy as db
 
 from datetime import datetime
 from os import getenv
-from sqlalchemy import BIGINT, Column, JSON, String, TIMESTAMP,
+from sqlalchemy import BIGINT, Column, JSON, String, TIMESTAMP
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
