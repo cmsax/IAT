@@ -72,7 +72,6 @@ export default class Container extends Vue {
   }
 
   handleChoose(payload: ChooseEventPayload) {
-    if (!payload.valid) return;
     this.finishedTests.push(payload);
     if (
       this.currentTestIndex <
