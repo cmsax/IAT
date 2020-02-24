@@ -207,19 +207,18 @@ export default class TestBox extends Vue {
   }
 
   handleKeyUp(event: KeyboardEvent) {
-    // image preload
     if (!this.imageLoaded) {
       return;
     }
-    // intro part
     if (!this.active) {
       if (event.keyCode === KEYS.continue) {
+        // continue
         this.$emit("continue");
       }
-      return;
-    }
-    // negative or positive
-    if (event.keyCode === KEYS.positive || event.keyCode === KEYS.negative) {
+    } else if (
+      event.keyCode === KEYS.positive ||
+      event.keyCode === KEYS.negative
+    ) {
       // choose
       this.valid =
         this.testCase!.positiveOrNegative === ValidMap[event.keyCode];
