@@ -72,6 +72,7 @@ export default class Container extends Vue {
       testPack,
       finishedTests
     });
+    this.startEndTime.endTime = Date.now();
     this.$store.commit(TYPES.UPDATE_START_END_TIME, this.startEndTime);
   }
 
@@ -95,6 +96,7 @@ export default class Container extends Vue {
     } else {
       this.finishTestPack(this.currentTestPack, this.finishedTests);
       // done test packs
+      this.done = true;
       this.$store.dispatch(ACTIONS.SUBMIT_RESULT_ASYNC).then(res => {
         // TODO check res
         this.$router.push("/iat/result");
