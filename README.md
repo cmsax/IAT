@@ -20,17 +20,19 @@ This IAT is inspired by [Project Implicit](https://implicit.harvard.edu/).
 - Reliable
   - image preloading
   - user action log
+  - user leave confirmation
   - time sensitive
+  - minimum interference
 
 ## Development
 
 ### Serverless
 
-This project uses Tencent cloud function (aka. Tencent SCF), the main logic defined in `/serverless/iat/main.py`.
+This project uses Tencent cloud function (aka. Tencent SCF), the main logic is defined in `/serverless/iat/main.py`.
 
 ### SPA
 
-This project basically uses Vue + Typescript.
+This project basically uses Vue + Typescript + Element-UI.
 
 ## Test Cases
 
@@ -78,14 +80,24 @@ Write your own test packs according to `TestPack` interface, in `/spa/iat/src/da
 
 ### Main Test
 
+Test instruction:
 ![sc test instruction](./screenshots/sc-1.png)
+
+Single test of image:
 ![sc test of image](./screenshots/sc-2.png)
+
+Single test of word:
 ![sc test of word](./screenshots/sc-3.png)
 
 ### Other Pages
 
+Homepage:
 ![sc research gate](./screenshots/sc-4.png)
+
+Test welcome & user basic information form:
 ![sc begin test](./screenshots/sc-5.png)
+
+Test result page:
 ![sc test result](./screenshots/sc-6.png)
 
 ## Live Demo
