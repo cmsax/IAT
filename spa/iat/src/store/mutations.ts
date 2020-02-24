@@ -14,6 +14,7 @@ export const TYPES = {
   UPDATE_USER_INFO: "UPDATE_USER_INFO",
   LOG_WELCOME_STATS: "LOG_WELCOME_STATS",
   LOG_USER_LEAVE: "LOG_USER_LEAVE",
+  UPDATE_START_END_TIME: "UPDATE_START_END_TIME",
 
   RESET: "RESET"
 };
@@ -43,6 +44,15 @@ export default {
   // 记录用户离开
   [TYPES.LOG_USER_LEAVE](state: FinalResult, payload: UserLeaveSpan) {
     state.userLeaveSpans.push(payload);
+  },
+
+  // 更新测验开始和结束时间
+  [TYPES.UPDATE_START_END_TIME](
+    state: FinalResult,
+    payload: { startTime: number; endTime: number }
+  ) {
+    state.testStart = payload.startTime;
+    state.testEnd = payload.endTime;
   },
 
   // RESET

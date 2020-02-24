@@ -31,6 +31,8 @@ export default class Container extends Vue {
   private testPacks: TestPack[] = TestPacks;
   private finishedTests: ChooseEventPayload[] = [];
   private alreadyReadInstructions = 0;
+  private startEndTime = { startTime: 0, endTime: 0 };
+  private done = false;
 
   get currentTestPack() {
     return this.testPacks[this.currentTestPackIndex];
@@ -58,6 +60,7 @@ export default class Container extends Vue {
     window.onbeforeunload = function(e: Event) {
       e.returnValue = true;
     };
+    this.startEndTime.startTime = Date.now();
   }
 
   handleContinue() {
@@ -69,9 +72,12 @@ export default class Container extends Vue {
       testPack,
       finishedTests
     });
+    this.$store.commit(TYPES.UPDATE_START_END_TIME, this.startEndTime);
   }
 
   handleChoose(payload: ChooseEventPayload) {
+    if (this.done) return;
+
     this.finishedTests.push(payload);
     if (
       this.currentTestIndex <
@@ -92,6 +98,7 @@ export default class Container extends Vue {
       this.$store.dispatch(ACTIONS.SUBMIT_RESULT_ASYNC).then(res => {
         // TODO check res
         this.$router.push("/iat/result");
+        // TODO set done false after failed.
       });
     }
   }
