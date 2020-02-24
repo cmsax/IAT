@@ -179,17 +179,6 @@ export default class TestBox extends Vue {
   }
 
   get helpInfo() {
-    // if (this.active && !this.valid) {
-    //   const isCurrentPositive =
-    //     this.testCase!.positiveOrNegative === "positive";
-    //   return (
-    //     "当前是" +
-    //     (isCurrentPositive ? "积极的" : "消极的") +
-    //     "，请按 " +
-    //     (isCurrentPositive ? "左" : "右") +
-    //     "方向键继续。"
-    //   );
-    // }
     if (!this.active) {
       return "当您阅读完说明后，如果准备好了，请按 空格键 继续测验";
     }
