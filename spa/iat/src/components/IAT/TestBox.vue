@@ -142,24 +142,11 @@ export default class TestBox extends Vue {
     return this.imageLoadedCount === this.allImages.length;
   }
 
-  resetLeaveSpan() {
-    this.userLeaveSpan = {
-      leaveStart: 0,
-      leaveEnd: 0,
-      currentTest: null,
-      currentTestPackIndex: 0,
-      notIntro: false
-    };
-  }
-
-  preloadImages() {
-    for (const imgSrc of this.allImages) {
-      const tempImage = new Image();
-      tempImage.src = imgSrc;
-      tempImage.onload = () => {
-        this.imageLoadedCount++;
-      };
+  get helpInfo() {
+    if (!this.active) {
+      return "当您阅读完说明后，如果准备好了，请按 空格键 继续测验";
     }
+    return "";
   }
 
   created() {
@@ -178,11 +165,24 @@ export default class TestBox extends Vue {
     window.removeEventListener("visibilitychange", this.handleUserLeave);
   }
 
-  get helpInfo() {
-    if (!this.active) {
-      return "当您阅读完说明后，如果准备好了，请按 空格键 继续测验";
+  resetLeaveSpan() {
+    this.userLeaveSpan = {
+      leaveStart: 0,
+      leaveEnd: 0,
+      currentTest: null,
+      currentTestPackIndex: 0,
+      notIntro: false
+    };
+  }
+
+  preloadImages() {
+    for (const imgSrc of this.allImages) {
+      const tempImage = new Image();
+      tempImage.src = imgSrc;
+      tempImage.onload = () => {
+        this.imageLoadedCount++;
+      };
     }
-    return "";
   }
 
   tick(): number {
