@@ -1,7 +1,7 @@
-import { FinalResult } from "@/interfaces/result";
+import { RefinedResult } from "@/interfaces/result";
 import { POST } from "./index";
 
-export const submitResult = (data: FinalResult) => {
+export const submitResult = (data: RefinedResult) => {
   const req = {
     data,
     url: "feiwei/iat"

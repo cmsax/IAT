@@ -1,8 +1,11 @@
 import { SingleTest } from "./test";
 
-export interface ChooseEventPayload {
+export interface BasicChooseEventPayload {
   keyCode: number;
   elapsed: number;
-  test: SingleTest;
   valid: boolean;
+}
+
+export interface ChooseEventPayload extends BasicChooseEventPayload {
+  test: SingleTest;
 }
