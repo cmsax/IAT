@@ -65,8 +65,8 @@
                   style="display: block; min-height:10px; margin:5px 0;"
                   v-for="(cmd, index) in optionalInstruction.cmds"
                   :key="index"
+                  v-html="cmd"
                 >
-                  {{ cmd }}
                 </li>
               </ul>
             </el-col>
