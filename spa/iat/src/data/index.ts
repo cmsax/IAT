@@ -6,14 +6,15 @@ export const Words = {
   negative: ["乏味的", "不吸引人的", "无味的", "不好吃的", "不美味的"]
 };
 
+export const staticBase = "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/"
 export const cdnBase =
-  "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/";
+  "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/versions/2/";
 const warmImages = [];
 const coldImages = [];
-for (let i = 1; i < 8; i++) {
+for (let i = 1; i < 9; i++) {
   warmImages.push(cdnBase + "1-" + i + ".jpg");
 }
-for (let i = 1; i < 8; i++) {
+for (let i = 1; i < 9; i++) {
   coldImages.push(cdnBase + "2-" + i + ".jpg");
 }
 const coldImageIntro = cdnBase + "cold.png";

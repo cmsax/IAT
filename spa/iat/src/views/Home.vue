@@ -40,7 +40,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { Card } from "@/interfaces/card";
-import { cdnBase } from "@/data";
+import { staticBase } from "@/data";
 
 @Component({})
 export default class Home extends Vue {
@@ -54,7 +54,7 @@ export default class Home extends Vue {
       path: "/iat/welcome"
     }
   ];
-  private staticBase = cdnBase;
+  private staticBase = staticBase;
 
   get pageTitle() {
     return "进行中的项目";
