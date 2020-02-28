@@ -34,12 +34,12 @@
 import { Vue, Component } from "vue-property-decorator";
 import { TYPES } from "@/store/mutations";
 import { FinalResult } from "@/interfaces/result";
-import { cdnBase } from "@/data";
+import { staticBase } from "@/data";
 import { DScore, DScoreExplanation } from "@/core";
 @Component({})
 export default class Result extends Vue {
   private pageTitle = "测验完成 | 饮食内隐联想测验";
-  private staticBase = cdnBase;
+  private staticBase = staticBase;
 
   get score() {
     return DScore((this.$store.state as FinalResult).finishedTestPacks);
