@@ -30,6 +30,7 @@
             <a
               style="text-decoration:none;color:inherit;font-size:inherit;font-family:inherit;"
               href="https://unoiou.com"
+              target="_blank"
               >Mingshi Cai.</a
             ></el-tag
           >
