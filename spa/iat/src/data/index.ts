@@ -6,7 +6,8 @@ export const Words = {
   negative: ["乏味的", "不吸引人的", "无味的", "不好吃的", "不美味的"]
 };
 
-export const staticBase = "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/"
+export const staticBase =
+  "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/";
 export const cdnBase =
   "https://latina-1253549750.cos.ap-shanghai.myqcloud.com/img/research/iat/versions/2/";
 const warmImages = [];
@@ -58,11 +59,14 @@ const reversedWordTestCases: SingleTest[] = [];
 reversedWordTestCases.push(...buildTestCase(Words.positive, true, "negative"));
 reversedWordTestCases.push(...buildTestCase(Words.negative, true, "positive"));
 
-export const TestPacks: TestPack[] = [
+const title = (cur: number, all: number): string =>
+  `第 ${cur} 部分 / 共 ${all} 个部分`;
+// Initial cases
+const InitCases = [
   // p1
   {
     instruction: {
-      title: "第 1 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现的图片是暖色食物图片时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现的图片是冷色食物图片时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -80,7 +84,7 @@ export const TestPacks: TestPack[] = [
   // p2
   {
     instruction: {
-      title: "第 2 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现美味类的词语时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现不美味类的词语时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -98,7 +102,7 @@ export const TestPacks: TestPack[] = [
   // p3
   {
     instruction: {
-      title: "第 3 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现暖色食物图片或者美味类的词语时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现冷色食物图片或者不美味类的词语时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -115,7 +119,7 @@ export const TestPacks: TestPack[] = [
   // p4 check
   {
     instruction: {
-      title: "第 4 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现暖色食物图片或者美味类的词语时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现冷色食物图片或者不美味类的词语时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -137,7 +141,7 @@ export const TestPacks: TestPack[] = [
   // p5 reversed
   {
     instruction: {
-      title: "第 5 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现的图片是冷色食物图片时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现的图片是暖色食物图片时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -154,7 +158,7 @@ export const TestPacks: TestPack[] = [
   // p6 reversed
   {
     instruction: {
-      title: "第 6 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现冷色食物图片或者美味类的词语时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现暖色食物图片或者不美味类的词语时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -171,7 +175,7 @@ export const TestPacks: TestPack[] = [
   // p7 reversed check
   {
     instruction: {
-      title: "第 7 部分 / 共 7 个部分",
+      title: "",
       cmds: [
         "当出现冷色食物图片或者美味类的词语时，用左手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>E</span>字母键。",
         "当出现暖色食物图片或者不美味类的词语时，用右手摁下<span style='font-weight:800; padding: 0 10px; font-size:20px;'>I</span>字母键。",
@@ -190,3 +194,15 @@ export const TestPacks: TestPack[] = [
     ])
   }
 ];
+
+// Test cases sequence
+const sequence = [5, 2, 6, 7, 1, 3, 4].map(val => val - 1);
+
+// Final test cases on the page
+export const TestPacks: TestPack[] = sequence.map(
+  (index: number, thisIndex: number): TestPack => {
+    const tempTP = InitCases[index];
+    tempTP.instruction.title = title(thisIndex + 1, sequence.length);
+    return tempTP;
+  }
+);
