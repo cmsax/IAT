@@ -24,6 +24,15 @@
           <p>
             {{ scoreExplanation }}
           </p>
+          <el-divider><i class="el-icon-connection"></i></el-divider>
+          <el-tag type="info"
+            >Developed by
+            <a
+              style="text-decoration:none;color:inherit;font-size:inherit;font-family:inherit;"
+              href="https://unoiou.com"
+              >Mingshi Cai.</a
+            ></el-tag
+          >
         </el-col>
       </el-row>
     </div>

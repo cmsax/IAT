@@ -13,6 +13,7 @@ import {
   Tabs,
   Rate,
   TabPane,
+  Divider,
   Tag
 } from "element-ui";
 
@@ -30,3 +31,4 @@ Vue.use(FormItem);
 Vue.use(Rate);
 Vue.use(RadioButton);
 Vue.use(Tag);
+Vue.use(Divider);
