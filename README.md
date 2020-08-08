@@ -34,6 +34,20 @@ This project uses Tencent cloud function (aka. Tencent SCF), the main logic is d
 
 This project basically uses Vue + Typescript + Element-UI.
 
+## Start Up 🎈
+
+A mock server is needed to run the SPA without backend. Besides, `npm` and `Node.js` is required, this project is also `yarn` compatible.
+
+This project use `json-server` as a mock API server. To run the SPA, follow the instructions below:
+
+- Install `Node.js` and `npm` [Click here to know `How to install Node.js and npm?`](https://www.google.com/search?q=how+to+install+nodejs+and+npm)
+- Install `json-server` by running command: `npm install -g json-server`
+- Run command `node spa/iat/mock/server.js` to start local mock RESTful API server
+- Run `npm install` in project root directory to install project dependencies
+- Run `npm serve` to run SPA and see what it looks like in the browser
+
+Feel free to [open an issue](https://github.com/cmsax/IAT/issues/new/choose) if you need help.
+
 ## Test Cases
 
 ### Test Case Interfaces
