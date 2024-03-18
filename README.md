@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a1d4430d-3f27-4344-88c0-5ef9e32c8cb8/deploy-status)](https://app.netlify.com/sites/zen-noyce-477e24/deploys)
 
-A project for Implicit Association Test, SPA + Serverless backend.
+A full stack project for Implicit Association Test, with SPA + Serverless backend + Analysis.
 
 Please give this project a star if it helps you. ❤️
 
