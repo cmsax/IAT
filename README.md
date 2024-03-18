@@ -4,6 +4,8 @@
 
 A project for Implicit Association Test, SPA + Serverless backend.
 
+Please give this project a star if it helps you. ❤️
+
 ## Introduction
 
 [Implicit Association Test](https://en.wikipedia.org/wiki/Implicit-association_test):
